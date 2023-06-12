@@ -20,22 +20,30 @@ public class PlayerMovement : MonoBehaviour
 
     void ProcessInput()
     {
+        ProcessThrust();
+        ProcessRotation();
+    }
+
+    void ProcessThrust()
+    {
         // GetKey will return true while input is held
         // don't use string reference overload due to nature of naming
         if (Input.GetKey(KeyCode.Space))
         {
             Debug.Log("Space bar is pressed - THRUSTING");
         }
-        // 
+    }
+
+    void ProcessRotation()
+    {
         if (Input.GetKey(KeyCode.D))
         {
             Debug.Log("D is pressed - ROTATE RIGHT");
         }
-        if (Input.GetKey(KeyCode.A))
+        else if (Input.GetKey(KeyCode.A))
         {
             Debug.Log("A is pressed - ROTATE LEFT");
         }
-
     }
 
     void MovePlayer()
