@@ -6,9 +6,12 @@ public class PlayerMovement : MonoBehaviour
 {
     // making move speed public to be serialized
     [SerializeField] float moveSpeed = 10f;
+    Rigidbody rb = null;
+    
     // Start is called before the first frame update
     void Start()
     {
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -30,6 +33,8 @@ public class PlayerMovement : MonoBehaviour
         // don't use string reference overload due to nature of naming
         if (Input.GetKey(KeyCode.Space))
         {
+            //vector is direction and magnitude
+            rb.AddRelativeForce(Vector3.up);
             Debug.Log("Space bar is pressed - THRUSTING");
         }
     }
