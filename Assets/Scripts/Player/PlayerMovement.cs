@@ -15,15 +15,30 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         ProcessInput();
-        movePlayer();
+        MovePlayer();
     }
 
     void ProcessInput()
     {
+        // GetKey will return true while input is held
+        // don't use string reference overload due to nature of naming
+        if (Input.GetKey(KeyCode.Space))
+        {
+            Debug.Log("Space bar is pressed - THRUSTING");
+        }
+        // 
+        if (Input.GetKey(KeyCode.D))
+        {
+            Debug.Log("D is pressed - ROTATE RIGHT");
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            Debug.Log("A is pressed - ROTATE LEFT");
+        }
 
     }
 
-    void movePlayer()
+    void MovePlayer()
     {
         // Time.deltaTime multiplies duration of frame tick to result in 1
         // ensuring that movement is consistent between machines with higher frame rates
