@@ -48,8 +48,8 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.D))
         {
-            // add a negative
-            ApplyRotate(-rotateThrust);
+            
+            ApplyRotate(-rotateThrust); // add a negative
             Debug.Log("D is pressed - ROTATE RIGHT");
         }
                 
@@ -57,6 +57,9 @@ public class PlayerMovement : MonoBehaviour
 
     void ApplyRotate(float rotationThisFrame)
     {
+        
+        rb.freezeRotation = true; // freeze engine physics rotation while inputing manual rottion
         transform.Rotate(Vector3.forward * rotationThisFrame * Time.deltaTime);
+        rb.freezeRotation = false; // continue engine physics
     }
 }
