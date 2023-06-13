@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     // making move speed public to be serialized
     [SerializeField] float mainThrust = 1000f;
-    [SerializeField] float rotateThrust = 1000f;
+    [SerializeField] float rotateThrust = 100f;
     Rigidbody rb = null;
     
     // Start is called before the first frame update
@@ -19,7 +19,6 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         ProcessInput();
-        MovePlayer();
     }
 
     void ProcessInput()
@@ -44,26 +43,20 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.A))
         {
-            transform.Rotate(Vector3.forward * rotateThrust * Time.deltaTime);
+            ApplyRotate(rotateThrust);
             Debug.Log("A is pressed - ROTATE LEFT");
         }
         else if (Input.GetKey(KeyCode.D))
         {
             // add a negative
-            transform.Rotate(-Vector3.forward);
+            ApplyRotate(-rotateThrust);
             Debug.Log("D is pressed - ROTATE RIGHT");
         }
                 
     }
 
-    void MovePlayer()
+    void ApplyRotate(float rotationThisFrame)
     {
-        // Time.deltaTime multiplies duration of frame tick to result in 1
-        // ensuring that movement is consistent between machines with higher frame rates
-        // float xValue = Input.GetAxis("Horizontal") * Time.deltaTime * moveSpeed;
-        // float zValue = Input.GetAxis("Vertical") * Time.deltaTime * moveSpeed;
-        // float yValue = 0 * Time.deltaTime;
-
-        // transform.Translate(xValue, yValue, zValue);
+        transform.Rotate(Vector3.forward * rotationThisFrame * Time.deltaTime);
     }
 }
