@@ -5,7 +5,8 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     // making move speed public to be serialized
-    [SerializeField] float moveSpeed = 10f;
+    [SerializeField] float mainThrust = 1000f;
+    [SerializeField] float rotateThrust = 1000f;
     Rigidbody rb = null;
     
     // Start is called before the first frame update
@@ -34,31 +35,35 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.Space))
         {
             //vector is direction and magnitude
-            rb.AddRelativeForce(Vector3.up);
+            rb.AddRelativeForce(Vector3.up * mainThrust * Time.deltaTime);
             Debug.Log("Space bar is pressed - THRUSTING");
         }
     }
 
     void ProcessRotation()
     {
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.A))
         {
-            Debug.Log("D is pressed - ROTATE RIGHT");
-        }
-        else if (Input.GetKey(KeyCode.A))
-        {
+            transform.Rotate(Vector3.forward * rotateThrust * Time.deltaTime);
             Debug.Log("A is pressed - ROTATE LEFT");
         }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            // add a negative
+            transform.Rotate(-Vector3.forward);
+            Debug.Log("D is pressed - ROTATE RIGHT");
+        }
+                
     }
 
     void MovePlayer()
     {
         // Time.deltaTime multiplies duration of frame tick to result in 1
         // ensuring that movement is consistent between machines with higher frame rates
-        float xValue = Input.GetAxis("Horizontal") * Time.deltaTime * moveSpeed;
-        float zValue = Input.GetAxis("Vertical") * Time.deltaTime * moveSpeed;
-        float yValue = 0 * Time.deltaTime;
+        // float xValue = Input.GetAxis("Horizontal") * Time.deltaTime * moveSpeed;
+        // float zValue = Input.GetAxis("Vertical") * Time.deltaTime * moveSpeed;
+        // float yValue = 0 * Time.deltaTime;
 
-        transform.Translate(xValue, yValue, zValue);
+        // transform.Translate(xValue, yValue, zValue);
     }
 }
