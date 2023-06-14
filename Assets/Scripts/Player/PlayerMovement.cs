@@ -43,7 +43,6 @@ public class PlayerMovement : MonoBehaviour
             }
             //vector is direction and magnitude
             rb.AddRelativeForce(Vector3.up * mainThrust * Time.deltaTime);
-            Debug.Log("Space bar is pressed - THRUSTING");
         }
         else
         {
@@ -56,13 +55,11 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.A))
         {
             ApplyRotate(rotateThrust);
-            Debug.Log("A is pressed - ROTATE LEFT");
         }
         else if (Input.GetKey(KeyCode.D))
         {
             
             ApplyRotate(-rotateThrust); // add a negative
-            Debug.Log("D is pressed - ROTATE RIGHT");
         }
                 
     }
