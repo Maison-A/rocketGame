@@ -8,11 +8,15 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float mainThrust = 1000f;
     [SerializeField] float rotateThrust = 100f;
     Rigidbody rb = null;
+    AudioSource asSource = null;
     
     // Start is called before the first frame update
     void Start()
     {
+        // get reference to component rigidbody and set to rb
         rb = GetComponent<Rigidbody>();
+        // get audio source
+        asSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -33,9 +37,17 @@ public class PlayerMovement : MonoBehaviour
         // don't use string reference overload due to nature of naming
         if (Input.GetKey(KeyCode.Space))
         {
+            if (!asSource.isPlaying)
+            {
+                asSource.Play();
+            }
             //vector is direction and magnitude
             rb.AddRelativeForce(Vector3.up * mainThrust * Time.deltaTime);
             Debug.Log("Space bar is pressed - THRUSTING");
+        }
+        else
+        {
+            asSource.Stop();
         }
     }
 
