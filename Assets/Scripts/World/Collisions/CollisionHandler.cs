@@ -23,6 +23,8 @@ public class CollisionHandler : MonoBehaviour
 
         switch (other.gameObject.tag)
         {
+            case "Friendly":
+                return;
             case "Finish":
                 SuccessSequence();
                 break;
