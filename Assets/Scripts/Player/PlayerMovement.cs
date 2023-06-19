@@ -73,20 +73,24 @@ public class PlayerMovement : MonoBehaviour
         //vector is direction and magnitude
         ThrustCalculation();
     }
-
-    private void ThrustCalculation()
+    
+    /* 
+     * Name: ThrustCalculation
+     * Desc: Putting this in its own method in order to store the var in case we need it
+     */
+    void ThrustCalculation()
     {
         rb.AddRelativeForce(Vector3.up * mainThrust * Time.deltaTime);
     }
 
-    private bool MediaPlaying()
+    bool MediaPlaying()
     {
         return !asSource.isPlaying || !particleThrust.isPlaying;
     }
 
     /* 
-     * Name:
-     * Desc:
+     * Name: PlayMedia
+     * Desc: play all required sounds, vsx, sfx, etc.
      */
     void PlayMedia()
     {
@@ -124,6 +128,7 @@ public class PlayerMovement : MonoBehaviour
         }
                 
     }
+    
     /*
      * Name: ApplyRotate
      * Desc: disallow engine physics to compete with user input and calculate 
