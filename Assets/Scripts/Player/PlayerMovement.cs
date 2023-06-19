@@ -55,11 +55,16 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            asSource.Stop();
-            particleThrust.Stop();
+            StopThrust();
         }
     }
-    
+
+    void StopThrust()
+    {
+        asSource.Stop();
+        particleThrust.Stop();
+    }
+
     /* 
      * Name: BeginThrusting
      * Desc: logic check 
