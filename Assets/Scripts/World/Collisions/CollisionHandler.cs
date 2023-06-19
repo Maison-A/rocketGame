@@ -5,16 +5,26 @@ using UnityEngine;
 using System;
 
 public class CollisionHandler : MonoBehaviour
-{
+{   
+    // Global
     [SerializeField] float loadDelay = 2f;
+    
+    // Audio
     [SerializeField] AudioClip soundCrash;
     [SerializeField] AudioClip soundSuccess;
+    
+    // Particles
+    [SerializeField] ParticleSystem particleCrash;
+    [SerializeField] ParticleSystem particleSuccess;
+
     AudioSource asSource = null;
+    
     bool isTransitioning = false;
 
     private void Start()
     {
         asSource = GetComponent<AudioSource>();
+    
     }
 
     private void OnCollisionEnter(Collision other)
@@ -24,6 +34,8 @@ public class CollisionHandler : MonoBehaviour
         switch (other.gameObject.tag)
         {
             case "Friendly":
+                return;
+            case "Player":
                 return;
             case "Finish":
                 SuccessSequence();
@@ -44,7 +56,7 @@ public class CollisionHandler : MonoBehaviour
         isTransitioning = true; // set transition state to true
         asSource.Stop(); // stop the source to prevent overlap
         asSource.PlayOneShot(soundCrash); // play sound set in enviornment editor
-
+        particleCrash.Play();
         GetComponent<PlayerMovement>().enabled = false; // disable player movement
         Invoke("SceneReload", loadDelay); // invoke allows for delay of method call
     }
@@ -59,7 +71,7 @@ public class CollisionHandler : MonoBehaviour
         isTransitioning = true;
         asSource.Stop();
         asSource.PlayOneShot(soundSuccess);
-        
+        particleSuccess.Play();
         GetComponent<PlayerMovement>().enabled = false;
         Invoke("LoadNextScene", loadDelay);
     }

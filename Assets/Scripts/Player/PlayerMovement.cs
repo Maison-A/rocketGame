@@ -4,17 +4,18 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    // Parameters - tuning, editor vars
-    // Cache - references for readability
-    // State - private members
-
-    // making move speed public to be serialized
+    // Global
     [SerializeField] float mainThrust = 1000f;
     [SerializeField] float rotateThrust = 100f;
-    [SerializeField] AudioClip engineThrust;
     
+    // Audio
+    [SerializeField] AudioClip engineThrust;
     Rigidbody rb = null;
     AudioSource asSource = null;
+    // Particles
+    [SerializeField] ParticleSystem particleBoosterRight;
+    [SerializeField] ParticleSystem particleBoosterLeft;
+    [SerializeField] ParticleSystem particleThrust;
     
     // Start is called before the first frame update
     void Start()
@@ -53,6 +54,7 @@ public class PlayerMovement : MonoBehaviour
             if (!asSource.isPlaying)
             {
                 asSource.PlayOneShot(engineThrust);
+                particleThrust.Play();
             }
             //vector is direction and magnitude
             rb.AddRelativeForce(Vector3.up * mainThrust * Time.deltaTime);
@@ -60,6 +62,7 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             asSource.Stop();
+            particleThrust.Stop();
         }
     }
     /*
@@ -70,12 +73,18 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.A))
         {
+            particleBoosterRight.Play();
             ApplyRotate(rotateThrust);
         }
         else if (Input.GetKey(KeyCode.D))
         {
-            
+            particleBoosterLeft.Play();
             ApplyRotate(-rotateThrust); // add a negative
+        }
+        else
+        {
+            particleBoosterLeft.Stop();
+            particleBoosterRight.Stop();
         }
                 
     }
