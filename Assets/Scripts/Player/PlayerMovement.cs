@@ -51,13 +51,7 @@ public class PlayerMovement : MonoBehaviour
         // don't use string reference overload due to nature of naming
         if (Input.GetKey(KeyCode.Space))
         {
-            if (!asSource.isPlaying || !particleThrust.isPlaying)
-            {
-                asSource.PlayOneShot(engineThrust);
-                particleThrust.Play();
-            }
-            //vector is direction and magnitude
-            rb.AddRelativeForce(Vector3.up * mainThrust * Time.deltaTime);
+            BeginThrusting();
         }
         else
         {
@@ -65,10 +59,45 @@ public class PlayerMovement : MonoBehaviour
             particleThrust.Stop();
         }
     }
-    /*
-     * Name: ProcessRotation
-     * Desc: handle player rotate information
+    
+    /* 
+     * Name: BeginThrusting
+     * Desc: logic check 
      */
+    void BeginThrusting()
+    {
+        if (MediaPlaying())
+        {
+            PlayMedia();
+        }
+        //vector is direction and magnitude
+        ThrustCalculation();
+    }
+
+    private void ThrustCalculation()
+    {
+        rb.AddRelativeForce(Vector3.up * mainThrust * Time.deltaTime);
+    }
+
+    private bool MediaPlaying()
+    {
+        return !asSource.isPlaying || !particleThrust.isPlaying;
+    }
+
+    /* 
+     * Name:
+     * Desc:
+     */
+    void PlayMedia()
+    {
+        asSource.PlayOneShot(engineThrust);
+        particleThrust.Play();
+    }
+
+    /*
+    * Name: ProcessRotation
+    * Desc: handle player rotate information
+    */
     void ProcessRotation()
     {
         if (Input.GetKey(KeyCode.A))
