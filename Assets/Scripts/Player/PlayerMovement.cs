@@ -51,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
         // don't use string reference overload due to nature of naming
         if (Input.GetKey(KeyCode.Space))
         {
-            if (!asSource.isPlaying)
+            if (!asSource.isPlaying || !particleThrust.isPlaying)
             {
                 asSource.PlayOneShot(engineThrust);
                 particleThrust.Play();
@@ -73,18 +73,25 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.A))
         {
-            particleBoosterRight.Play();
+            if (!particleBoosterRight.isPlaying) // i intuitively solved this, there's gotta be a better way
+            {
+                particleBoosterRight.Play();
+            }
             ApplyRotate(rotateThrust);
         }
         else if (Input.GetKey(KeyCode.D))
         {
-            particleBoosterLeft.Play();
+            if (!particleBoosterLeft.isPlaying)
+            {
+                particleBoosterLeft.Play();
+            }
+            
             ApplyRotate(-rotateThrust); // add a negative
         }
         else
         {
-            particleBoosterLeft.Stop();
             particleBoosterRight.Stop();
+            particleBoosterLeft.Stop();
         }
                 
     }
