@@ -87,7 +87,10 @@ public class PlayerMovement : MonoBehaviour
     {
         rb.AddRelativeForce(Vector3.up * mainThrust * Time.deltaTime);
     }
-
+    /* 
+     * Name: MediaPlaying
+     * Desc: logic check on if media is playing
+     */
     bool MediaPlaying()
     {
         return !asSource.isPlaying || !particleThrust.isPlaying;

@@ -21,6 +21,8 @@ public class CollisionHandler : MonoBehaviour
     
     bool isTransitioning = false;
 
+    bool collisionDisabled = false;
+
     private void Start()
     {
         asSource = GetComponent<AudioSource>();
@@ -29,7 +31,7 @@ public class CollisionHandler : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (isTransitioning) {return; }// break out if is Transitioning is set to true
+        if (isTransitioning || collisionDisabled) {return; }// break out if is Transitioning is set to true
 
         switch (other.gameObject.tag)
         {
@@ -104,4 +106,21 @@ public class CollisionHandler : MonoBehaviour
         }
         SceneManager.LoadScene(nextSceneIndex);
     }
+
+    /*
+     * Name: RespondToDebugKeys
+     * Desc: 
+     */
+    void RespondToDebugKeys()
+    {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            LoadNextScene();
+        }
+        else if (Input.GetKeyDown(KeyCode.C))
+        {
+            collisionDisabled = !collisionDisabled; // toggle collision
+        }
+    }
+
 }
