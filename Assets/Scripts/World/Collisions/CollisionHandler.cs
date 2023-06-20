@@ -23,10 +23,15 @@ public class CollisionHandler : MonoBehaviour
 
     bool collisionDisabled = false;
 
-    private void Start()
+    void Start()
     {
         asSource = GetComponent<AudioSource>();
     
+    }
+    
+    void Update()
+    {
+        RespondToDebugKeys();
     }
 
     private void OnCollisionEnter(Collision other)
