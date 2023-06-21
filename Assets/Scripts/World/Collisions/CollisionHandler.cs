@@ -114,7 +114,7 @@ public class CollisionHandler : MonoBehaviour
 
     /*
      * Name: RespondToDebugKeys
-     * Desc: 
+     * Desc: allow debugging
      */
     void RespondToDebugKeys()
     {
